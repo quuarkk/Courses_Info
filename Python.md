@@ -1522,3 +1522,843 @@ for i in range(5):
 - `range(n)` даёт n повторений (0 до n-1)
 - Переменная цикла (обычно `i`) доступна внутри цикла
 
+## **Частые сценарии с циклами**
+
+---
+
+### **1. Подсчёт количества (counter)**
+```python
+counter = 0                      # 1. Инициализация
+for i in range(10):
+    num = int(input())
+    if num > 10:
+        counter = counter + 1    # 2. Увеличение счётчика
+
+print("Чисел > 10:", counter)
+```
+
+**Пример - считаем нули:**
+```python
+zeros = 0
+for _ in range(5):
+    n = int(input())
+    if n == 0:
+        zeros += 1
+print("Нулей:", zeros)
+```
+
+---
+
+### **2. Вычисление суммы (total)**
+```python
+total = 0                        # 1. Инициализация
+for i in range(5):
+    num = int(input())
+    total = total + num          # 2. Добавление к сумме
+
+print("Сумма:", total)
+```
+
+**Сумма чётных чисел от 1 до 100:**
+```python
+sum_even = 0
+for i in range(2, 101, 2):
+    sum_even += i
+print("Сумма чётных:", sum_even)
+```
+
+---
+
+### **3. Поиск максимума**
+```python
+# Вариант 1 (если числа положительные)
+largest = 0
+for _ in range(5):
+    num = int(input())
+    if num > largest:
+        largest = num
+
+# Вариант 2 (для любых чисел)
+largest = int(input())          # Первое число как начальное
+for _ in range(4):
+    num = int(input())
+    if num > largest:
+        largest = num
+
+print("Максимум:", largest)
+```
+
+---
+
+### **4. Поиск минимума**
+```python
+smallest = int(input())          # Первое число как начальное
+for _ in range(4):
+    num = int(input())
+    if num < smallest:
+        smallest = num
+
+print("Минимум:", smallest)
+```
+
+---
+
+### **5. Расширенные операторы присваивания**
+```python
+# Вместо этого:
+counter = counter + 1
+total = total + num
+
+# Пишем так:
+counter += 1
+total += num
+
+# Другие примеры:
+x -= 5      # x = x - 5
+y *= 2      # y = y * 2
+z //= 3     # z = z // 3
+a %= 2      # a = a % 2
+```
+
+---
+
+### **6. Сигнальные метки (флаги)**
+```python
+has_zero = False                 # Флаг-метка
+for _ in range(5):
+    num = int(input())
+    if num == 0:
+        has_zero = True          # Меняем флаг
+
+if has_zero:
+    print("Был ноль")
+else:
+    print("Нулей не было")
+```
+
+**Проверка на чётность всех чисел:**
+```python
+all_even = True
+for _ in range(5):
+    n = int(input())
+    if n % 2 != 0:               # Если хоть одно нечётное
+        all_even = False
+
+if all_even:
+    print("Все чётные")
+```
+
+---
+
+### **7. Вычисление произведения**
+```python
+product = 1                      # Начинаем с 1!
+for i in range(1, 6):
+    product *= i                 # 1*2*3*4*5
+
+print("5! =", product)          # 120
+```
+
+---
+
+### **8. Среднее значение**
+```python
+total = 0
+for _ in range(5):
+    num = int(input())
+    total += num
+
+average = total / 5
+print("Среднее:", average)
+```
+
+---
+
+### **9. Обмен значений переменных**
+```python
+a, b = 5, 10
+a, b = b, a   # Теперь a=10, b=5
+```
+
+---
+
+### **10. Практические примеры**
+
+**Сумма и количество:**
+```python
+sum_pos = 0
+count_pos = 0
+for _ in range(7):
+    n = int(input())
+    if n > 0:
+        sum_pos += n
+        count_pos += 1
+
+print("Сумма положительных:", sum_pos)
+print("Количество положительных:", count_pos)
+```
+
+**Максимум и его порядковый номер:**
+```python
+max_num = int(input())
+max_index = 1                    # Номер максимального
+for i in range(2, 6):           # i - номер вводимого числа
+    num = int(input())
+    if num > max_num:
+        max_num = num
+        max_index = i
+
+print("Максимум:", max_num, "на позиции", max_index)
+```
+
+**Числа, оканчивающиеся на 4:**
+```python
+count = 0
+for i in range(1, 101):
+    if i**2 % 10 == 4:
+        count += 1
+print("Квадраты, оканчивающиеся на 4:", count)
+```
+
+---
+
+**Шаблоны:**
+1. **Счётчик:** `count = 0` → `count += 1`
+2. **Сумма:** `total = 0` → `total += x`
+3. **Произведение:** `product = 1` → `product *= x`
+4. **Максимум:** `max_val = первое_число` → `if x > max_val: max_val = x`
+5. **Минимум:** `min_val = первое_число` → `if x < min_val: min_val = x`
+6. **Флаг:** `flag = False` → `flag = True` при условии
+
+## **Цикл while**
+
+---
+
+### **1. Базовый синтаксис**
+```python
+while условие:
+    # тело цикла
+    команда1
+    команда2
+```
+
+**Пример - как for:**
+```python
+i = 0
+while i < 5:
+    print("Привет")
+    i += 1  # важно менять переменную!
+```
+
+---
+
+### **2. Когда использовать while вместо for**
+**Когда НЕ знаем количество повторений заранее:**
+```python
+# Читаем числа пока не введём 0
+num = int(input())
+while num != 0:
+    print(num**2)
+    num = int(input())
+```
+
+---
+
+### **3. Считывание до стоп-значения**
+```python
+# Сумма чисел пока не введём "stop"
+total = 0
+text = input()
+while text != "stop":
+    total += int(text)
+    text = input()  # новое значение для проверки
+print("Сумма:", total)
+```
+
+**Другой вариант (без дублирования input):**
+```python
+total = 0
+while True:
+    num = int(input())
+    if num == -1:
+        break  # о break позже
+    total += num
+```
+
+---
+
+### **4. Бесконечный цикл (осторожно!)**
+```python
+# НИКОГДА ТАК НЕ ДЕЛАЙТЕ:
+# while True:
+#     print("Бесконечность...")
+
+# Правильно с условием выхода:
+i = 0
+while i < 10:  # условие в какой-то момент станет False
+    print(i)
+    i += 1
+```
+
+---
+
+### **5. Практические примеры**
+
+**Числа кратные 3:**
+```python
+i = 0
+while i < 100:
+    print(i)
+    i += 3  # следующее кратное
+```
+
+**Обработка цифр числа:**
+```python
+n = int(input())
+while n > 0:
+    digit = n % 10  # последняя цифра
+    print(digit)
+    n = n // 10     # убираем последнюю цифру
+```
+
+**Проверка пароля:**
+```python
+password = input("Введите пароль: ")
+while password != "secret":
+    print("Неверно!")
+    password = input("Введите пароль: ")
+print("Доступ разрешён")
+```
+
+---
+
+### **6. Важные отличия от for**
+
+| Особенность | for | while |
+|-------------|-----|-------|
+| **Количество итераций** | Известно заранее | Неизвестно |
+| **Счётчик** | Создаётся автоматически | Нужно создавать вручную |
+| **Изменение счётчика** | Автоматическое | Ручное (i += 1) |
+| **Лучше для** | Известного количества повторов | Неизвестного количества/условий |
+
+**Эквивалентные записи:**
+```python
+# for
+for i in range(10):
+    print(i)
+
+# while
+i = 0
+while i < 10:
+    print(i)
+    i += 1
+```
+
+---
+
+### **7. Частые ошибки**
+
+1. **Забыли изменить переменную:**
+```python
+i = 0
+while i < 5:
+    print(i)
+    # i += 1  <- ЗАБЫЛИ! БЕСКОНЕЧНЫЙ ЦИКЛ!
+```
+
+2. **Неправильное начальное значение:**
+```python
+i = 10
+while i > 0:  # i всегда > 0
+    print(i)
+    i += 1    # i увеличивается!
+```
+
+3. **Нет условия выхода:**
+```python
+# while 1 == 1:  # всегда True
+#     print("oops")
+```
+
+---
+
+### **8. Полезные паттерны**
+
+**Паттерн "сначала прочитать":**
+```python
+# Читаем первое значение до цикла
+value = input()
+while value != "стоп":
+    # Обрабатываем
+    print(value)
+    # Читаем следующее
+    value = input()
+```
+
+**Паттерн "сумма до нуля":**
+```python
+total = 0
+num = int(input("Число (0 для выхода): "))
+while num != 0:
+    total += num
+    num = int(input("Число (0 для выхода): "))
+print("Итого:", total)
+```
+
+**Паттерн "повтор до успеха":**
+```python
+correct = False
+while not correct:
+    answer = input("2+2=? ")
+    if answer == "4":
+        correct = True
+        print("Верно!")
+    else:
+        print("Попробуйте ещё")
+```
+
+---
+
+**Вывод:** `while` используется когда количество повторений неизвестно. Главное — обеспечить условие выхода из цикла.
+
+## **Обработка цифр числа**
+
+---
+
+### **1. Метод с while (основной)**
+
+**Как получить цифры справа налево:**
+```python
+num = int(input())
+while num > 0:
+    digit = num % 10      # последняя цифра
+    print(digit)          # обрабатываем
+    num = num // 10       # убираем последнюю цифру
+```
+
+**Пример: число 123 → вывод: 3 2 1**
+
+---
+
+### **2. Практические задачи с while**
+
+**Сумма цифр:**
+```python
+num = int(input())
+total = 0
+while num > 0:
+    total += num % 10
+    num //= 10
+print("Сумма цифр:", total)
+```
+
+**Количество цифр:**
+```python
+num = int(input())
+count = 0
+while num > 0:
+    count += 1
+    num //= 10
+print("Количество цифр:", count)
+```
+
+**Проверка на наличие цифры 7:**
+```python
+num = int(input())
+has_seven = False
+while num > 0:
+    if num % 10 == 7:
+        has_seven = True
+    num //= 10
+print("YES" if has_seven else "NO")
+```
+
+**Наибольшая цифра:**
+```python
+num = int(input())
+max_digit = 0
+while num > 0:
+    digit = num % 10
+    if digit > max_digit:
+        max_digit = digit
+    num //= 10
+print("Наибольшая цифра:", max_digit)
+```
+
+---
+
+### **3. Метод с for (через строку)**
+
+**Справа налево:**
+```python
+num = 123
+for digit in str(num)[::-1]:  # [::-1] - разворот строки
+    print(int(digit))
+```
+
+**Слева направо:**
+```python
+num = 123
+for digit in str(num):  # обычный порядок
+    print(int(digit))
+```
+
+---
+
+### **4. Метод с for (математический)**
+
+**Слева направо:**
+```python
+num = 8619
+n = len(str(num))  # количество цифр
+for i in range(1, n + 1):
+    # Формула: (num // 10**(n-i)) % 10
+    digit = (num // 10**(n-i)) % 10
+    print(f"{i}-я цифра: {digit}")
+```
+
+**Вывод:**
+```
+1-я цифра: 8
+2-я цифра: 6
+3-я цифра: 1
+4-я цифра: 9
+```
+
+---
+
+### **5. Частые задачи**
+
+**Произведение цифр:**
+```python
+num = int(input())
+product = 1
+while num > 0:
+    product *= num % 10
+    num //= 10
+print("Произведение цифр:", product)
+```
+
+**Проверка на чётность цифр:**
+```python
+num = int(input())
+all_even = True
+while num > 0:
+    if (num % 10) % 2 != 0:
+        all_even = False
+    num //= 10
+print("Все цифры чётные:", all_even)
+```
+
+**Число в обратном порядке:**
+```python
+num = int(input())
+reversed_num = 0
+while num > 0:
+    digit = num % 10
+    reversed_num = reversed_num * 10 + digit
+    num //= 10
+print("Обратное число:", reversed_num)
+# 123 → 321
+```
+
+**Сумма первой и последней цифры:**
+```python
+num = int(input())
+last_digit = num % 10
+
+# Находим первую цифру
+while num >= 10:
+    num //= 10
+first_digit = num
+
+print("Сумма первой и последней:", first_digit + last_digit)
+```
+
+---
+
+### **6. Когда какой метод использовать**
+
+**while (цикл):**
+- Когда нужно обработать все цифры
+- Когда не важен порядок (или нужен справа налево)
+- Когда число может быть 0 (проверяем `num > 0`)
+
+**for через строку:**
+- Когда важен порядок слева направо
+- Когда нужен простой код
+- Когда нужно считать конкретные цифры
+
+**Пример: подсчёт нулей в числе**
+```python
+# Способ 1: через while
+count = 0
+n = int(input())
+while n > 0:
+    if n % 10 == 0:
+        count += 1
+    n //= 10
+print("Нулей:", count)
+
+# Способ 2: через строку
+n = input()  # уже строка!
+count = n.count('0')
+print("Нулей:", count)
+```
+
+---
+
+### **7. Важные моменты**
+
+1. **Обработка нуля:**
+```python
+num = 0
+while num > 0:  # Цикл не выполнится!
+    ...
+# Для нуля нужна отдельная проверка
+```
+
+2. **Отрицательные числа:**
+```python
+num = abs(int(input()))  # Берём модуль!
+# дальше обрабатываем как положительное
+```
+
+3. **Сохранение исходного числа:**
+```python
+original = num
+# работаем с num
+# original остаётся неизменным
+```
+
+---
+
+**Вывод:**
+- Цифры справа налево: `while num > 0: digit = num % 10`
+- Цифры слева направо: `for digit in str(num):`
+- Основные операции: `% 10` (последняя цифра), `// 10` (без последней)
+
+## **Вложенные циклы**
+
+---
+
+### **1. Базовый пример**
+```python
+# Внешний цикл
+for i in range(3):
+    # Внутренний цикл
+    for j in range(2):
+        print(f"i={i}, j={j}")
+```
+**Вывод:**
+```
+i=0, j=0
+i=0, j=1
+i=1, j=0
+i=1, j=1
+i=2, j=0
+i=2, j=1
+```
+
+---
+
+### **2. Электронные часы**
+```python
+for hours in range(24):
+    for minutes in range(60):
+        for seconds in range(60):
+            print(f"{hours:02}:{minutes:02}:{seconds:02}")
+```
+
+**Количество итераций:** 24 × 60 × 60 = 86 400
+
+---
+
+### **3. Таблица умножения**
+```python
+for i in range(1, 10):
+    for j in range(1, 10):
+        print(f"{i}×{j}={i*j:2}", end=" ")
+    print()  # новая строка
+```
+
+---
+
+### **4. Рисование фигур**
+
+**Прямоугольник:**
+```python
+rows, cols = 5, 10
+for i in range(rows):
+    for j in range(cols):
+        print("*", end="")
+    print()  # переход на новую строку
+```
+
+**Треугольник:**
+```python
+for i in range(5):
+    for j in range(i + 1):
+        print("*", end="")
+    print()
+```
+**Вывод:**
+```
+*
+**
+***
+****
+*****
+```
+
+---
+
+### **5. break и continue во вложенных циклах**
+
+**break прерывает только внутренний цикл:**
+```python
+for i in range(3):
+    for j in range(3):
+        if j == 1:
+            break  # выходит только из цикла по j
+        print(i, j)
+```
+**Вывод:** (j никогда не будет 1)
+```
+0 0
+1 0
+2 0
+```
+
+**continue во внутреннем цикле:**
+```python
+for i in range(3):
+    for j in range(3):
+        if j == 1:
+            continue  # пропускает j=1
+        print(i, j)
+```
+**Вывод:**
+```
+0 0
+0 2
+1 0
+1 2
+2 0
+2 2
+```
+
+---
+
+### **6. Практические примеры**
+
+**Поиск пар чисел:**
+```python
+# Найти все пары (x,y) такие что x+y=10
+for x in range(11):
+    for y in range(11):
+        if x + y == 10:
+            print(f"({x},{y})")
+```
+
+**Проверка делителей:**
+```python
+# Для каждого числа от 1 до 10 найти его делители
+for num in range(1, 11):
+    print(f"Делители {num}:", end=" ")
+    for div in range(1, num+1):
+        if num % div == 0:
+            print(div, end=" ")
+    print()
+```
+
+---
+
+### **7. break из внешнего цикла через флаг**
+```python
+stop_flag = False
+for i in range(5):
+    for j in range(5):
+        if i == 2 and j == 2:
+            stop_flag = True
+            break
+        print(i, j)
+    if stop_flag:
+        break
+```
+
+---
+
+### **8. Важные моменты**
+
+1. **Порядок выполнения:**
+```python
+for i in range(2):      # 2 итерации
+    for j in range(3):  # 3 итерации для каждого i
+        print(i, j)     # Всего 2×3=6 раз
+```
+
+2. **Переменные цикла не конфликтуют:**
+```python
+# Можно использовать одинаковые имена
+for i in range(2):
+    for i in range(3):  # Перезаписывает внешнюю i!
+        print(i)
+    print("---")
+```
+
+3. **Вложенность может быть любой глубины:**
+```python
+for a in range(2):
+    for b in range(2):
+        for c in range(2):
+            for d in range(2):
+                print(a, b, c, d)
+```
+
+4. **Смешанные циклы:**
+```python
+i = 0
+while i < 3:
+    for j in range(2):
+        print(i, j)
+    i += 1
+```
+
+---
+
+### **9. Сложные фигуры**
+
+**Пустой прямоугольник:**
+```python
+rows, cols = 5, 10
+for i in range(rows):
+    for j in range(cols):
+        if i == 0 or i == rows-1 or j == 0 or j == cols-1:
+            print("*", end="")
+        else:
+            print(" ", end="")
+    print()
+```
+
+**Пирамида чисел:**
+```python
+for i in range(1, 6):
+    for j in range(1, i+1):
+        print(j, end="")
+    print()
+```
+**Вывод:**
+```
+1
+12
+123
+1234
+12345
+```
+
+---
+
+**Вывод:** Вложенные циклы позволяют обрабатывать двумерные структуры (таблицы, матрицы, координаты). Внутренний цикл выполняется полностью для каждой итерации внешнего цикла.
+
+
